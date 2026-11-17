@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <meta charset="utf-8">
 <title>庭中有奇 QQ人扁叮叮</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -304,7 +305,7 @@ body {
 @keyframes ybob { 50% { transform: translateY(-16px); } }
 .obj .lbl { position: absolute; left: 50%; bottom: -44px; transform: translateX(-50%); white-space: nowrap; font-size: 28px; font-weight: 700; pointer-events: none; }
 .txtobj { box-sizing: border-box; border: 4px dashed var(--ink); border-radius: 24px; background: var(--paper); font-size: 34px; font-weight: 700; line-height: 1.4; text-align: center; display: flex; align-items: center; justify-content: center; padding: 18px; }
-.bubble { position: absolute; width: 460px; box-sizing: border-box; padding: 20px 26px; background: var(--paper); border: 4px solid var(--ink); border-radius: 28px; font-size: 34px; font-weight: 500; line-height: 1.45; pointer-events: none; display: none; z-index: 2000; }
+.bubble { white-space: pre-line; position: absolute; width: 460px; box-sizing: border-box; padding: 20px 26px; background: var(--paper); border: 4px solid var(--ink); border-radius: 28px; font-size: 34px; font-weight: 500; line-height: 1.45; pointer-events: none; display: none; z-index: 2000; }
 .bubble::after { content: ""; position: absolute; left: 50%; bottom: -18px; width: 28px; height: 28px; margin-left: -14px; background: var(--paper); border-right: 4px solid var(--ink); border-bottom: 4px solid var(--ink); transform: rotate(45deg); }
 .rest { visibility: hidden; }
 .ybtns { position: absolute; z-index: 2000; display: none; }
@@ -404,6 +405,12 @@ html.yardmode #barBg { display: none; }
 #nbBan { left: 700px; top: 560px; width: 1100px; text-align: center; font: 700 110px sans-serif; color: #fff; -webkit-text-stroke: 18px #222; paint-order: stroke fill; opacity: 0; pointer-events: none; z-index: 60; }
 #nbBan.on { animation: nbban 1.2s ease-out; }
 @keyframes nbban { 0% { opacity: 0; transform: scale(.7); } 20% { opacity: 1; transform: scale(1.05); } 75% { opacity: 1; } 100% { opacity: 0; } }
+#nbRes { left: 0; top: 0; width: 2500px; height: 1400px; background: rgba(0,0,0,.6); z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 60px; }
+#nbRes.on { display: flex; }
+#nbRes h1 { margin: 0; font: 700 220px/1 sans-serif; color: #fff; -webkit-text-stroke: 24px #222; paint-order: stroke fill; }
+#nbRes p { margin: 0; font: 700 64px/1.3 sans-serif; color: #fff; text-align: center; }
+#nbRes .row { display: flex; gap: 60px; }
+#nbRes button { font: 700 64px sans-serif; padding: 22px 70px; background: #fff; border: 6px solid #111; border-radius: 22px; color: #111; }
 #nbDmgSum { left: 1540px; top: 960px; width: 520px; text-align: center; font: 700 38px sans-serif; color: #fff; -webkit-text-stroke: 7px #333; paint-order: stroke fill; }
 </style>
 
@@ -1397,13 +1404,13 @@ html.yardmode #barBg { display: none; }
   function buildYard() {
     if (yardReady) return;
     yardReady = true;
-    ['y-tree', 'y-treeh', 'y-ding', 'y-gacha', 'y-fire', 'y-wood', 'y-mirror', 'y-qq'].forEach(function (n) { new Image().src = 'assets/' + n + '.png'; });
-    new Image().src = 'assets/y-bg.jpg'; new Image().src = 'assets/y-mark.png';
+    ['y-tree', 'y-treeh', 'y-ding', 'y-fire', 'y-wood', 'y-qq'].forEach(function (n) { new Image().src = 'assets/' + n + '.png'; });
+    new Image().src = 'assets/y-bg.jpg'; new Image().src = 'assets/h-bg.jpg'; new Image().src = 'assets/y-mark.png';
     document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
     document.addEventListener('wheel', function (e) { if (e.ctrlKey && stage.classList.contains('is-yard')) e.preventDefault(); }, { passive: false });
     var tree = { id: 'tree', mark: function () { return tutDone() && passiveAmt() > 0; }, x: 491, b: 890, w: 495, img: function () { return treeRipe() ? 'assets/y-treeh.png' : 'assets/y-tree.png'; },
       label: function () { return treeRipe() ? '豐收的叮叮樹！' : ''; },
-      convos: [['是先有叮叮還是先有樹？', '我想是先有叮叮。'], ['今天的叮叮看起來也很甜。'], ['想搖我的話，先吃飽才有力氣喔。']],
+      convos: [['只要睜開眼睛，就能看見這個樹界。'], ['書裡的樹疏離的豎立在蘇利的梳理臺上。'], ['聞道有先後，樹葉有專攻。']],
       buttons: function () {
         if (Y.tut === 'wait') return [];
         var claim = Y.tut === 'claim';
@@ -1414,7 +1421,7 @@ html.yardmode #barBg { display: none; }
       img: function () { return roastState() === 'idle' ? 'assets/y-wood.png' : 'assets/y-fire.png'; },
       wNow: function () { return roastState() === 'idle' ? 215 : 234; },
       label: function () { var st = roastState(); return st === 'roasting' ? '烤叮叮中 ' + fmtT(Y.roastEnd - Date.now()) : st === 'done' ? '烤好了！' : ''; },
-      convos: [['火燒得暖暖的。'], ['烤叮叮的香味，是世界上最棒的香味。'], ['小心燙喔。']],
+      convos: [['營火只要努力，就可以贏火。'], ['也許我是一種蟲。', '營火蟲。'], ['如果火朝你走過來你要做什麼？', '迎火。']],
       buttons: function () {
         if (Y.tut === 'wait') return [];
         var st = roastState();
@@ -1425,23 +1432,57 @@ html.yardmode #barBg { display: none; }
       } };
     // objects that never change shape are already painted into the background: only an invisible tap area sits on them
     var house = { id: 'house', hot: true, right: true, x: 1560, b: 870, w: 940, h: 870,
-      convos: [['這是我的家。'], ['裡面有鏡子，還有一台扭蛋機。']],
+      convos: [['房人之心不可無。'], ['我的婆婆是屋婆。'], ['等我老了之後要房子老化。']],
       buttons: function () { return Y.tut === 'wait' ? [] : [nbtn('進入家中', tutDone(), goHome)]; } };
     var qq = { id: 'qq', hot: true, x: 1425, b: 972, w: 220, h: 208,
-      convos: [['今天也要加油！'], ['摸摸我的頭也可以喔。', '……開玩笑的。'], ['叮叮最好吃的時候，是剛烤好的時候。']],
+      convos: [['一人做事一人當，叮叮做事叮叮當。'], ['我站在草地上是一種到草人。'], ['corner是玉米人。', 'hammer是火腿人。']],
       buttons: function () { return []; } };
     var pencil = { id: 'pencil', hot: true, right: true, x: 1795, b: 1325, w: 610, h: 265,
-      convos: [['好大一枝鉛筆。'], ['不知道可以拿來寫什麼……']],
+      convos: [['筆利金嗯伊絲納買啦ver。'], ['筆咧。'], ['我姓蕭。', '因為我是蕭鉛筆。']],
       buttons: function () { return []; } };
     sceneYard = makeScene($('yardScene'), $('yardWorld'), 2500, 1400, [house, tree, qq, fire, pencil]);
     var bgi = document.createElement('img'); bgi.src = 'assets/y-bg.jpg'; bgi.alt = ''; bgi.className = 'ybg'; $('yardWorld').insertBefore(bgi, $('yardWorld').firstChild);
-    var mirror = { id: 'mirror', x: 420, b: 830, w: 300, img: function () { return 'assets/y-mirror.png'; },
-      convos: [['鏡子裡的我，好像比較帥？'], ['照鏡子的功能還在準備中。']],
-      buttons: function () { return [nbtn('照鏡子（準備中）', false)]; } };
-    var gacha = { id: 'gacha', x: 1250, b: 850, w: 260, img: function () { return 'assets/y-gacha.png'; },
-      convos: [['扭蛋機轉一次，會出什麼呢？'], ['扭蛋機還在準備中。']],
+    var h_poster = { id: 'poster', hot: true, x: 75, b: 925, w: 350, h: 850,
+      convos: [['噢噢噢。', '我住在北極。'], ['一個寶島來的海盜報導海島的海豹吃漢堡的海報。'], ['海洋污染就是海報廢了。']],
+      buttons: function () { return []; } };
+    var h_bed = { id: 'bed', hot: true, x: 180, b: 1290, w: 760, h: 770,
+      convos: [['床到橋頭自然直。'], ['我的頭是枕頭。'], ['棉被的英文是member。']],
+      buttons: function () { return []; } };
+    var h_frame = { id: 'frame', hot: true, x: 745, b: 400, w: 125, h: 215,
+      convos: [['動物園的大象區是一種象框嗎？'], ['馬克吐溫養兔子會變成馬克兔溫。'], ['狗熊哆嗦毛。', '隆咚框隆咚框隆咚隆咚隆咚框。']],
+      buttons: function () { return []; } };
+    var h_window = { id: 'window', hot: true, x: 1035, b: 480, w: 460, h: 330,
+      convos: [['There were nights when the wind was so cold', 'That my body froze in bed', 'If I just listened to it right outside the window。'], ['窗前明月光，好像打地上了。'], ['心靈之窗是一種心窗公司。']],
+      buttons: function () { return []; } };
+    var h_lamp = { id: 'lamp', hot: true, x: 930, b: 1065, w: 280, h: 600,
+      convos: [['越暗的地方你越亮。'], ['一閃一閃亮叮叮。'], ['燈高一呼。', '呼。']],
+      buttons: function () { return []; } };
+    var h_clock = { id: 'clock', hot: true, x: 1315, b: 715, w: 165, h: 160,
+      convos: [['時鐘的英文是strong。'], ['把時鐘別在衣服裡面是一種時鐘別裡。', 'strawberry。'], ['起來重睡。']],
+      buttons: function () { return []; } };
+    var h_lemon = { id: 'lemon', hot: true, x: 1490, b: 745, w: 100, h: 120,
+      convos: [['檸好，歡迎光檸。'], ['檸好，幫我把毛巾檸檬。'], ['檸好，檸今年Greg？', '貴庚大燕麥片。']],
+      buttons: function () { return []; } };
+    var h_plant = { id: 'plant', hot: true, right: true, x: 1565, b: 710, w: 190, h: 300,
+      convos: [['種得美叮美當。'], ['有盆自遠方來，不亦樂乎？'], ['把叮叮帶到西門就會變成西門叮。']],
+      buttons: function () { return []; } };
+    var h_cabinet = { id: 'cabinet', hot: true, x: 1270, b: 1090, w: 500, h: 330,
+      convos: [['念天地之抽抽，獨愴然而屜下。'], ['抽卡抽不到就來抽屜吧。'], ['我平常不抽煙的，我都抽屜。']],
+      buttons: function () { return []; } };
+    var h_hook = { id: 'hook', hot: true, right: true, x: 1640, b: 335, w: 190, h: 340,
+      convos: [['這樣是一種明鏡高懸。'], ['眼鏡的英文是engine。'], ['不跟別人說自己家很乾淨就是一種掩淨。']],
+      buttons: function () { return []; } };
+    var h_qq = { id: 'qq', hot: true, x: 1040, b: 1345, w: 590, h: 300,
+      convos: [['為什麼梁山伯沒有住在梁山泊？'], ['我昨天賴床。', '床沒有回我。'], ['有地堪躺直須躺，莫待無地空站著。']],
+      buttons: function () { return []; } };
+    var h_gacha = { id: 'gacha', hot: true, right: true, x: 1805, b: 1085, w: 240, h: 470,
+      convos: [['扭蛋的英文是Newton。'], ['以人為鏡，可以讓人亮亮的。'], ['跟朋友一起約去玩扭蛋機是一種紐約。']],
       buttons: function () { return [nbtn('轉扭蛋（準備中）', false)]; } };
-    sceneHome = makeScene($('homeScene'), $('homeWorld'), 1920, 1080, [mirror, gacha]);
+    var h_mirror = { id: 'mirror', hot: true, right: true, x: 1985, b: 1300, w: 350, h: 490,
+      convos: [['新鏡子的英文是New Jeans。'], ['蜂蜜照鏡子會變成蜜蜂。'], ['上海自來水來自海上。']],
+      buttons: function () { return [nbtn('照鏡子（準備中）', false)]; } };
+    sceneHome = makeScene($('homeScene'), $('homeWorld'), 2500, 1400, [h_poster, h_bed, h_frame, h_window, h_lamp, h_clock, h_lemon, h_plant, h_cabinet, h_hook, h_qq, h_gacha, h_mirror]);
+    var hbg = document.createElement('img'); hbg.src = 'assets/h-bg.jpg'; hbg.alt = ''; hbg.className = 'ybg'; $('homeWorld').insertBefore(hbg, $('homeWorld').firstChild);
   }
 
   function showScene(which) {
@@ -1613,10 +1654,10 @@ html.yardmode #barBg { display: none; }
       '<div id="nbKet"><img src="assets/kt0.webp" alt=""><b></b></div>' +
       '<button id="nbRef" type="button" aria-label="刷新手牌"><svg viewBox="0 0 70 70"><path d="M52 24A22 22 0 1 0 56 38" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round"/><path d="M54 8v18H36" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
       '<div id="nbAP"></div>' +
-      '<div id="nbInfo"></div><div id="nbToast"></div><div id="nbBan"></div></div>';
+      '<div id="nbRes"></div><div id="nbInfo"></div><div id="nbToast"></div><div id="nbBan"></div></div>';
     $('nb').innerHTML = h;
     var q = function (id) { return $(id); };
-    q('nbExit').addEventListener('click', function () { nbLeave(); });
+    q('nbExit').addEventListener('click', function () { nbExitTap(); });
     q('nbEnd').addEventListener('click', function () { nbEnd(); });
     q('nbBag').addEventListener('click', function () { nbToast('道具背包之後才會做'); });
     q('nbRef').addEventListener('click', function () { nbRefresh(); });
@@ -1660,7 +1701,7 @@ html.yardmode #barBg { display: none; }
     nbFill(); nbRender(); nbBanner('第 ' + N.round + ' 回合');
   }
   function nbEnd() {
-    if (!N || N.mode !== 'idle') return;
+    if (!N || N.mode !== 'idle' || N.paused || N.over) return;
     N.mode = 'busy'; N.sel = null; clearTimeout(N.autoT); nbRender();
     var n = 0;
     function atk() {
@@ -1698,7 +1739,7 @@ html.yardmode #barBg { display: none; }
     });
     N.cd = Math.max(0, N.cd - 1);
     nbRender();
-    nbLater(function () { if (N) nbNewTurn(); }, 500);
+    nbLater(function () { if (!N) return; if (N.round >= NB_WIN_ROUND) nbResult(true, '成功堅持了 ' + NB_WIN_ROUND + ' 回合'); else nbNewTurn(); }, 500);
   }
   function nbMax(o) { var m = o.base + (o.daz.length ? 200 : 0); o.max = m; if (o.hp > m) o.hp = m; }
   function nbAfter() {
@@ -1776,14 +1817,14 @@ html.yardmode #barBg { display: none; }
   }
   function nbCancel() { if (!N) return; if (N.mode === 'merge' || N.mode === 'ult' || N.mode === 'target') N.mode = 'idle'; N.mergeSrc = null; N.tgtCard = null; N.sel = null; nbRender(); }
   function nbClickCard(c) {
-    if (!N) return;
+    if (!N || N.paused || N.over) return;
     if (N.mode === 'merge') { nbMerge(c); return; }
     if (N.mode === 'ult' || N.mode === 'target') { nbCancel(); return; }
     if (N.mode !== 'idle') return;
     if (N.sel === c) nbPlay(c); else { N.sel = c; nbRender(); }
   }
   function nbKettleTap() {
-    if (!N || N.mode === 'busy') return;
+    if (!N || N.mode === 'busy' || N.paused || N.over) return;
     if (N.mode === 'ult') { nbCancel(); return; }
     if (N.kettle < 100) { nbToast('水壺能量 ' + N.kettle + '%（集滿 100% 才能發動大招）'); return; }
     if (N.mode !== 'idle') return;
@@ -1813,7 +1854,7 @@ html.yardmode #barBg { display: none; }
     nbAfter();
   }
   function nbRefresh() {
-    if (!N || N.mode !== 'idle') return;
+    if (!N || N.mode !== 'idle' || N.paused || N.over) return;
     if (N.cd > 0) { nbToast('刷新手牌還要等 ' + N.cd + ' 回合'); return; }
     N.hand.forEach(nbDiscard); N.hand = []; nbFill(); N.cd = 4; N.sel = null; nbAfter();
   }
@@ -1886,6 +1927,29 @@ html.yardmode #barBg { display: none; }
     stage.classList.remove('is-yard', 'is-select', 'is-battle'); stage.classList.add('is-nb'); document.documentElement.classList.add('yardmode');
     nbStartBattle();
   }
+  var NB_WIN_ROUND = 10;
+  function nbResult(win, why) {
+    if (!N) return; N.over = true; N.mode = 'busy'; clearTimeout(N.autoT);
+    var e = $('nbRes');
+    if (win && Y) {   // winning shakes the tree: normal 10 dings, ripe tree pays out x10 and starts growing again
+      var ripe = harvestReady(), reward = ripe ? 100 : 10;
+      if (ripe) Y.harvestAt = Date.now() + HARVEST_MS;
+      Y.dings += reward; saveY();
+      why += '<br>叮叮 +' + reward + (ripe ? '（豐收的叮叮樹，收成十倍！）' : '') + '　目前叮叮 ' + Y.dings;
+    }
+    e.innerHTML = '<h1>' + (win ? '勝利！' : '戰敗') + '</h1><p>' + why + '</p><div class="row"><button type="button" id="nbResOk">回到庭院</button></div>';
+    e.classList.add('on'); $('nbResOk').addEventListener('click', function () { nbT.forEach(clearTimeout); nbT = []; gotoYard(); });
+    nbRender();
+  }
+  function nbExitTap() {
+    if (!N || N.over) return;
+    if (N.round < 2) { nbLeave(); return; }          // nothing completed yet: free to leave
+    var e = $('nbRes'), prevMode = N.mode;
+    e.innerHTML = '<h1 style="font-size:150px">中途退出？</h1><p>已經打過至少一回合，現在退出會視為戰敗。</p><div class="row"><button type="button" id="nbResNo">繼續戰鬥</button><button type="button" id="nbResYes">退出（戰敗）</button></div>';
+    e.classList.add('on'); N.paused = true;
+    $('nbResNo').addEventListener('click', function () { e.classList.remove('on'); N.paused = false; });
+    $('nbResYes').addEventListener('click', function () { e.classList.remove('on'); N.paused = false; nbResult(false, '中途退出'); });
+  }
   function nbLeave() { if (!N) return; nbT.forEach(clearTimeout); nbT = []; gotoYard(); }
   window.__qqNB = function () { return { start: function () { fade(startNB); }, N: function () { return N; }, play: nbPlay, click: nbClickCard, end: nbEnd, ult: nbUlt, tap: nbKettleTap, refresh: nbRefresh, render: nbRender, el: nbEls }; };
 
@@ -1894,3 +1958,5 @@ html.yardmode #barBg { display: none; }
   requestAnimationFrame(frame);
 })();
 </script>
+
+</body></html>
